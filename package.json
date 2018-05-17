@@ -16,9 +16,8 @@
     "express": "~4.13.1",
     "font-awesome": "^4.7.0",
     "moment": "^2.22.1",
-    "morgan": "~1.6.1",
+    "mongoose": "^5.1.1",
     "node-sass": "^4.9.0",
-    "pg": "^4.4.6",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-router": "^4.2.0",
@@ -34,7 +33,7 @@
     "css-loader": "^0.28.11",
     "sass-loader": "^7.0.1",
     "style-loader": "^0.21.0",
-    "webpack": "^4.8.3",
-    "webpack-dev-server": "^3.1.4"
+    "webpack": "^3.0.0",
+    "webpack-dev-server": "2.10.0"
   }
 }

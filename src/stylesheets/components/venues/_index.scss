@@ -1,0 +1,10 @@
+#venues{
+  .no-results{
+    text-align: center;
+    color: $navigation-bg;
+
+    @media only screen and (max-width: $mobile-max){
+      font-size: 12px;
+    }
+  }
+}

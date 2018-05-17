@@ -1,0 +1,17 @@
+/* import helpers */
+@import "./helpers/colors";
+@import "./helpers/typography";
+@import "./helpers/screens";
+
+/* import component styles */
+@import "./components/navigation/index";
+@import "./components/home/index";
+@import "./components/venues/index";
+
+*{
+  box-sizing: border-box;
+}
+body{
+  background-color: $main-bg;
+  margin: 50px 0 0 0;
+}
