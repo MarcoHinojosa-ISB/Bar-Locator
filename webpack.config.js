@@ -31,7 +31,7 @@ module.exports = {
       app.use(bodyParser.urlencoded({ extended: false }));
 
       app.get("/search", function(req, res){
-        axios.get('https://api.yelp.com/v3/businesses/search?location='+req.query.location, {
+        axios.get('https://api.yelp.com/v3/businesses/search?location='+req.query.location+'&categories=amusementparks&limit=50', {
           headers: {
             'Authorization': 'Bearer ' + process.env.YELP_FUSION_API_KEY
           }

@@ -6,7 +6,7 @@ import Venues from "../venues/index.jsx";
 class Home extends React.Component{
   constructor(props){
     super(props);
-    this.state = {location};
+    this.state = {location: "", venues: null, loadingResults: false};
   }
   setLocation(event){
     this.setState({location: event.target.value});
@@ -14,12 +14,15 @@ class Home extends React.Component{
   search(e){
     e.preventDefault();
 
+    this.setState({loadingResults: true});
+
     Axios("/search?location="+this.state.location)
     .then(result => {
       console.log(result);
+      this.setState({venues: result.data.businesses, loadingResults: false})
     })
     .catch(err => {
-      console.log("error")
+      console.log(err)
     })
 
     return false;
@@ -28,12 +31,12 @@ class Home extends React.Component{
     return (
       <div id="home">
         <br />
-        <h2>Search a Venue</h2>
+        <h2>Theme park locator</h2>
         <form className="search" onSubmit={this.search.bind(this)}>
           <input type="text" placeholder="location" onChange={this.setLocation.bind(this)} />
           <button type="submit" ><i className="fa fa-search"></i></button>
         </form>
-        <Venues />
+        <Venues venues={this.state.venues} loading={this.state.loadingResults}/>
       </div>
     )
   }

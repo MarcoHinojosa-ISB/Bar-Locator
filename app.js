@@ -25,7 +25,7 @@ app.use("/node_modules", express.static(__dirname + "/node_modules"));
 app.use("/src", express.static(__dirname + "/src"));
 
 app.get("/search", function(req, res){
-  axios.get('https://api.yelp.com/v3/businesses/search?term=delis&latitude=37.786882&longitude=-122.399972', {
+  axios.get('https://api.yelp.com/v3/businesses/search?location='req.query.location+'&categories=amusementparks&limit=50', {
     headers: {
       'Authorization': 'Bearer ' + process.env.YELP_FUSION_API_KEY
     }

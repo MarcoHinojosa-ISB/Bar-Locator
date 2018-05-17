@@ -1,10 +1,67 @@
 #venues{
-  .no-results{
+  .loading, .no-results{
     text-align: center;
     color: $navigation-bg;
 
     @media only screen and (max-width: $mobile-max){
       font-size: 12px;
+    }
+  }
+
+  .some-results{
+    width: 80%;
+    margin: 0 auto;
+
+    .venue{
+      background-color: $venu-bg;
+      min-height: 120px;
+      border-radius: 10px;
+      padding: 6px;
+
+      @media only screen and (min-width: $desktop-min){
+        width: 350px;
+        float: left;
+        margin: 5px;
+
+        img, .bad-img-url{
+          width: 120px;
+          height: 120px;
+          float: left;
+          margin-right: 10px;
+        }
+        .bad-img-url{
+          background-color: #777777;
+          border: 5px solid #999999;
+          line-height: 120px;
+          text-align: center;
+          font-size: 10px;
+        }
+      }
+      @media only screen and (max-width: $mobile-max){
+        width: 100%;
+        margin: 10px 0px;
+
+        h3{
+          margin: 3px 0px;
+        }
+        img, .bad-img-url{
+          width: 100px;
+          height: 100px;
+          float: left;
+          margin-right: 10px;
+        }
+        .bad-img-url{
+          background-color: #777777;
+          border: 3px solid #999999;
+          line-height: 100px;
+          text-align: center;
+          font-size: 8px;
+        }
+      }
+
+      .link > a{
+        text-decoration: none;
+      }
     }
   }
 }
