@@ -17,13 +17,11 @@ class Login extends React.Component{
 
   render(){
     return (
-      <div id="login">
-        <form onSubmit={this.login.bind(this)}>
-          <input type="text" onChange={this.setUsername} value={this.state.username} placeholder="username" />
-          <input type="password" onChange={this.setPassword} value={this.state.password} placeholder="password" />
-          <input type="submit" value="submit" />
-        </form>
-      </div>
+      <form id="login" onSubmit={this.login.bind(this)}>
+        <input type="text" onChange={this.setUsername} value={this.state.username} placeholder="username" />
+        <input type="password" onChange={this.setPassword} value={this.state.password} placeholder="password" />
+        <input type="submit" value="submit" />
+      </form>
     )
   }
 }

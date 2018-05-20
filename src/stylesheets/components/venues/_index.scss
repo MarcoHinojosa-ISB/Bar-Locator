@@ -1,7 +1,7 @@
 #venues{
   .loading, .no-results{
     text-align: center;
-    color: $navigation-bg;
+    color: $navigation-bg-color;
 
     @media only screen and (max-width: $mobile-max){
       font-size: 12px;
@@ -13,7 +13,7 @@
     margin: 0 auto;
 
     .venue{
-      background-color: $venu-bg;
+      background-color: $venue-bg-color;
       min-height: 120px;
       border-radius: 10px;
       padding: 6px;

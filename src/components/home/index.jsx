@@ -1,7 +1,7 @@
 import React from "react";
 import Axios from "axios";
 import Venues from "../venues/index.jsx";
-
+import Auth from "../auth/index.jsx";
 
 class Home extends React.Component{
   constructor(props){

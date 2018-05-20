@@ -6,6 +6,9 @@ class Navigation extends React.Component{
     super(props);
     this.state = {};
   }
+  home(){
+    this.props.history.push("/");
+  }
   login(){
     this.props.history.push("/login");
   }
@@ -15,7 +18,7 @@ class Navigation extends React.Component{
   render(){
     return(
       <div id="navigation">
-        <h3 className="title">Theme Park Locator</h3>
+        <h3 className="title" onClick={this.home.bind(this)}>Theme Park Locator</h3>
 
         <ul className="nav-btns">
           <li onClick={this.login.bind(this)}>Login</li>

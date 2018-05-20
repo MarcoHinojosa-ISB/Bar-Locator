@@ -17,18 +17,19 @@ class Register extends React.Component{
   setPassword(e){
     this.setState({password: e.target.value})
   }
+  register(){
+    
+  }
 
   render(){
     return(
-      <div id="register">
-        <form >
-          <input type="text" onChange={this.setFirst.bind(this)} placeholder="first name" />
-          <input type="text" onChange={this.setLast.bind(this)} placeholder="last name" />
-          <input type="text" onChange={this.setUsername.bind(this)} placeholder="username" />
-          <input type="password" onChange={this.setPassword.bind(this)} placeholder="password" />
-          <input type="submit" value="submit"/>
-        </form>
-      </div>
+      <form id="register" onSubmit={this.register.bind(this)}>
+        <input type="text" onChange={this.setFirst.bind(this)} placeholder="first name" />
+        <input type="text" onChange={this.setLast.bind(this)} placeholder="last name" />
+        <input type="text" onChange={this.setUsername.bind(this)} placeholder="username" />
+        <input type="password" onChange={this.setPassword.bind(this)} placeholder="password" />
+        <input type="submit" value="submit"/>
+      </form>
     )
   }
 }

@@ -1,8 +1,9 @@
 #navigation{
   $height: 50px;
 
-  background-color: $navigation-bg;
+  background-color: $navigation-bg-color;
   position: fixed;
+  z-index: 1;
   left: 0px;
   top: 0px;
   width: 100%;
@@ -26,15 +27,17 @@
     li{
       float: left;
       line-height: $height;
-      @media only screen and (max-width: $mobile-max){
-        padding: 0 3px 0 3px;
-      }
       @media only screen and (min-width: $desktop-min){
         padding: 0 5px 0 5px;
       }
+      @media only screen and (max-width: $mobile-max){
+        padding: 0 3px 0 3px;
+      }
+
 
       &:hover{
-        background-color: #ffffff;
+        background-color: $navigation-btn-hover-bg-color;
+        cursor: pointer;
       }
     }
   }

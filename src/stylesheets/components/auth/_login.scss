@@ -1,0 +1,23 @@
+#login{
+  input{
+    width: 100%;
+    margin: 5px 0px;
+    padding-left: 5px;
+    border: none;
+
+    @media only screen and (max-width: $mobile-max){
+      height: 25px;
+    }
+  }
+
+  input[type="submit"]{
+    background-color: $auth-submit-bg-color;
+    color: $auth-submit-font-color;
+    height: 20px;
+    border: none;
+
+    @media only screen and (max-width: $mobile-max){
+      height: 30px;
+    }
+  }
+}

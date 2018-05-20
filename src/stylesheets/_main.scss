@@ -7,11 +7,12 @@
 @import "./components/navigation/index";
 @import "./components/home/index";
 @import "./components/venues/index";
+@import "./components/auth/index";
 
 *{
   box-sizing: border-box;
 }
 body{
-  background-color: $main-bg;
+  background-color: $main-bg-color;
   margin: 50px 0 0 0;
 }
