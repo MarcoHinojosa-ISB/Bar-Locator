@@ -3,11 +3,18 @@ var path = require("path");
 var favicon = require("serve-favicon");
 var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
-var axios = require("axios");
+var mongoose = require("mongoose");
 require("dotenv").config();
 
 var app = express();
 
+// get api routes
+require("./backend/api/external.js")(app);
+require("./backend/api/user.js")(app);
+require("./backend/api/venue.js")(app);
+
+// connect to database
+mongoose.connect(process.env.MONGO_URL);
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
@@ -24,25 +31,8 @@ app.use(function (req, res, next) {
 app.use("/node_modules", express.static(__dirname + "/node_modules"));
 app.use("/src", express.static(__dirname + "/src"));
 
-app.get("/search", function(req, res){
-  axios.get('https://api.yelp.com/v3/businesses/search?location='req.query.location+'&categories=amusementparks&limit=50', {
-    headers: {
-      'Authorization': 'Bearer ' + process.env.YELP_FUSION_API_KEY
-    }
-  })
-  .then((result) => {
-    res.send(result.data);
-  })
-  .catch((err) => {
-    res.send(err);
-  });
-
-})
-
 app.use("/", function(req, res){
   res.sendFile(__dirname + "/index.html");
 });
-
-
 
 module.exports = app;

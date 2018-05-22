@@ -11,18 +11,63 @@
   .some-results{
     width: 80%;
     margin: 0 auto;
+    margin-top: 5px;
+
+    >h3{
+      text-align: center;
+
+      @media only screen and (min-width: $desktop-min){
+        font-size: 16px;
+      }
+      @media only screen and (max-width: $mobile-max){
+        font-size: 12px;
+      }
+    }
 
     .venue{
+      position: relative;
       background-color: $venue-bg-color;
-      min-height: 120px;
       border-radius: 10px;
       padding: 6px;
 
+      .other{
+        .link{
+          display: inline-block;
+          text-align: left;
+          text-decoration: none;
+          color: red;
+          float: left;
+
+          >a:hover{
+            cursor: pointer;
+          }
+        }
+        .people-going{
+          display: inline-block;
+          text-align: right;
+          background-color: $venue-people-bg-color;
+          color: #ffffff;
+          float: right;
+
+          >span:hover{
+            cursor: pointer;
+          }
+        }
+      }
+
+
+      .clearfix{
+        clear: both;
+      }
       @media only screen and (min-width: $desktop-min){
         width: 350px;
         float: left;
-        margin: 5px;
+        margin: 0px 5px 5px 0px;
 
+        .title{
+          margin: 2px 0px;
+          font-size: 14px;
+        }
         img, .bad-img-url{
           width: 120px;
           height: 120px;
@@ -36,13 +81,17 @@
           text-align: center;
           font-size: 10px;
         }
+        .address, .phone, .other{
+          font-size: 11px;
+        }
       }
       @media only screen and (max-width: $mobile-max){
         width: 100%;
         margin: 10px 0px;
 
-        h3{
-          margin: 3px 0px;
+        .title{
+          margin: 2px 0px;
+          font-size: 12px;
         }
         img, .bad-img-url{
           width: 100px;
@@ -57,10 +106,9 @@
           text-align: center;
           font-size: 8px;
         }
-      }
-
-      .link > a{
-        text-decoration: none;
+        .address, .phone, .other{
+          font-size: 10px;
+        }
       }
     }
   }

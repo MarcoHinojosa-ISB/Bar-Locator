@@ -15,6 +15,10 @@
     left: 20px;
     margin: 0px;
     line-height: $height;
+
+    &:hover{
+      cursor: pointer;
+    }
   }
   .nav-btns{
     position: absolute;
@@ -35,7 +39,7 @@
       }
 
 
-      &:hover{
+      &.clickable:hover{
         background-color: $navigation-btn-hover-bg-color;
         cursor: pointer;
       }

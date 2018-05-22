@@ -10,6 +10,11 @@
     }
   }
 
+  .error{
+    color: $auth-error-font-color;
+    font-size: 13px;
+  }
+
   input[type="submit"]{
     background-color: $auth-submit-bg-color;
     color: $auth-submit-font-color;

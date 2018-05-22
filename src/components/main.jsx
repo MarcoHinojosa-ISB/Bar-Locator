@@ -8,7 +8,6 @@ class Main extends React.Component{
   constructor(props){
     super(props);
     this.state = {};
-    console.log(this.props)
   }
   render(){
     return(

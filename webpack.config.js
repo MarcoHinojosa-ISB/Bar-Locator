@@ -1,6 +1,8 @@
 var bodyParser = require("body-parser");
-var axios = require("axios");
+var mongoose = require("mongoose");
 require("dotenv").config();
+
+
 
 module.exports = {
   module: {
@@ -27,23 +29,15 @@ module.exports = {
     port: 3000,
     historyApiFallback: true,
     before(app){
+      mongoose.connect(process.env.MONGO_URL);
+
       app.use(bodyParser.json());
       app.use(bodyParser.urlencoded({ extended: false }));
 
-      app.get("/search", function(req, res){
-        axios.get('https://api.yelp.com/v3/businesses/search?location='+req.query.location+'&categories=amusementparks&limit=50', {
-          headers: {
-            'Authorization': 'Bearer ' + process.env.YELP_FUSION_API_KEY
-          }
-        })
-        .then((result) => {
-          res.send(result.data);
-        })
-        .catch((err) => {
-          res.send(err);
-        });
+      require("./backend/api/external.js")(app);
+      require("./backend/api/user.js")(app);
+      require("./backend/api/venue.js")(app);
 
-      })
       app.use(function (req, res, next) {
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Methods", "OPTIONS,GET,POST,PUT,DELETE");

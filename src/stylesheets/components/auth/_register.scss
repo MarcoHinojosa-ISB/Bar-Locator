@@ -1,5 +1,4 @@
 #register{
-
   input{
     width: 100%;
     margin: 5px 0px;
@@ -9,6 +8,11 @@
     @media only screen and (max-width: $mobile-max){
       height: 25px;
     }
+  }
+
+  .error{
+    color: $auth-error-font-color;
+    font-size: 13px;
   }
 
   input[type="submit"]{

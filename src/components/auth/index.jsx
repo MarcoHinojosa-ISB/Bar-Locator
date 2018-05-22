@@ -1,4 +1,5 @@
 import React from "react";
+import {withRouter} from "react-router";
 import Login from "./login.jsx";
 import Register from "./register.jsx";
 
@@ -8,7 +9,7 @@ class Auth extends React.Component{
     this.state = {};
   }
   render(){
-    var title = this.props.authType === "login" ? "Sign in": "Sign up";
+    var title = this.props.authType === "login" ? "Sign in": "Register";
     var form = this.props.authType === "login" ? (<Login />): (<Register />);
 
     return(
@@ -20,4 +21,4 @@ class Auth extends React.Component{
   }
 }
 
-export default Auth;
+export default withRouter(Auth);
