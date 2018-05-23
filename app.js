@@ -8,6 +8,10 @@ require("dotenv").config();
 
 var app = express();
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+
 // get api routes
 require("./backend/api/external.js")(app);
 require("./backend/api/user.js")(app);
@@ -15,12 +19,6 @@ require("./backend/api/venue.js")(app);
 
 // connect to database
 mongoose.connect(process.env.MONGODB_URI);
-
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
