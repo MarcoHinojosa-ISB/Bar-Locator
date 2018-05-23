@@ -29,7 +29,7 @@ module.exports = {
     port: 3000,
     historyApiFallback: true,
     before(app){
-      mongoose.connect(process.env.MONGO_URL);
+      mongoose.connect(process.env.MONGODB_URI);
 
       app.use(bodyParser.json());
       app.use(bodyParser.urlencoded({ extended: false }));

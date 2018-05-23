@@ -14,7 +14,7 @@ require("./backend/api/user.js")(app);
 require("./backend/api/venue.js")(app);
 
 // connect to database
-mongoose.connect(process.env.MONGO_URL);
+mongoose.connect(process.env.MONGODB_URI);
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
