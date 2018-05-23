@@ -30,38 +30,33 @@
       border-radius: 10px;
       padding: 6px;
 
-      .other{
-        .link{
-          display: inline-block;
-          text-align: left;
-          text-decoration: none;
-          color: red;
-          float: left;
+      .link a:hover{
+        cursor: pointer;
+      }
+      .people-going{
+        display: inline-block;
+        background-color: $venue-people-bg-color;
+        color: #ffffff;
+        margin-top: 20px;
+        padding: 3px;
+      }
+      .invite-self{
+        display: inline-block;
+        background-color: $venue-people-bg-color;
+        color: #ffffff;
+        padding: 3px;
+        border: 1px solid $venue-bg-color;
 
-          >a:hover{
-            cursor: pointer;
-          }
-        }
-        .people-going{
-          display: inline-block;
-          text-align: right;
-          background-color: $venue-people-bg-color;
-          color: #ffffff;
-          float: right;
-
-          >span:hover{
-            cursor: pointer;
-          }
+        &:hover{
+          cursor: pointer;
         }
       }
-
-
       .clearfix{
         clear: both;
       }
+
       @media only screen and (min-width: $desktop-min){
-        width: 350px;
-        float: left;
+        width: 100%;
         margin: 0px 5px 5px 0px;
 
         .title{
@@ -81,7 +76,7 @@
           text-align: center;
           font-size: 10px;
         }
-        .address, .phone, .other{
+        .address, .phone, .link, .people-going, .invite-self{
           font-size: 11px;
         }
       }
@@ -106,7 +101,7 @@
           text-align: center;
           font-size: 8px;
         }
-        .address, .phone, .other{
+        .address, .phone, .link, .people-going, .invite-self{
           font-size: 10px;
         }
       }

@@ -1,14 +1,12 @@
 var Venue = require("../models/venue.js");
 
 function init(app){
+  // for each venue received, add to the database if not exists
   app.post("/api/venues/add-new-venues", function(req, res){
-    var count = 0;
     for(let i=0; i<req.body.businesses.length; i++){
       Venue.find({ venueId: req.body.businesses[i].id }).exec(function(err, result){
-        if(err){
+        if(err)
           res.status(500).send("server error");
-        }
-
         else if(result.length === 0){
           var newVenue = new Venue({
             venueId: req.body.businesses[i].id,
@@ -23,40 +21,60 @@ function init(app){
           newVenue.save(function(err){
             if(err)
               res.status(500).send(err);
-            else{
-              count++;
-              if(count >= req.body.businesses.length)
-                res.status(200).send("ok");
-            }
+            else if(i+1 === req.body.businesses.length)
+              res.status(200).send("ok");
           });
         }
-        else{
-          count++;
-          if(count >= req.body.businesses.length)
-            res.status(200).send("ok");
-        }
-
+        else if(i + 1 === req.body.businesses.length)
+          res.status(200).send("ok");
       })
     }
-
-
   })
 
-  app.post("/api/venues/get-people-going", function(req, res){
+  // retrieve venue data from database
+  app.post("/api/venues/retrieve-venues", function(req, res){
     var ids = [];
 
-    for(i in req.body.businesses){
-      ids.push(req.body.businesses[i].id);
+    // if retrieving immediately after search
+    if(req.body.businesses){
+      for(i in req.body.businesses){
+        ids.push(req.body.businesses[i].id);
+      }
     }
-    console.log(ids)
-    Venue.find( {venueId: { $in: ids }}).exec(function(err, results){
+    // if retrieving after updating people going
+    else{
+      for(i in req.body){
+        ids.push(req.body[i].venueId);
+      }
+    }
+
+    Venue.find( {venueId: { $in: ids } } ).exec(function(err, results){
+      err ? res.status(500).send(err) : res.status(200).send(results);
+    });
+  });
+
+  app.post("/api/venues/add-to-venue", function(req, res){
+    var goingList = req.body.people_going;
+    goingList.push(req.body.username);
+
+    Venue.findOneAndUpdate({ venueId: req.body.venueId }, {people_going: goingList}, { "new": true}, function(err, result){
       if(err)
         res.status(500).send(err);
-      else{
-        res.status(200).send(results);
-      }
-
+      else
+        res.status(200).send(result);
+    })
+  })
+  app.post("/api/venues/remove-from-venue", function(req, res){
+    var goingList = req.body.people_going.filter(function(val){
+      return val !== req.body.username;
     });
+
+    Venue.findOneAndUpdate({ venueId: req.body.venueId }, {people_going: goingList}, { "new": true}, function(err, result){
+      if(err)
+        res.status(500).send(err);
+      else
+        res.status(200).send(result);
+    })
   })
 }
 
