@@ -4,8 +4,10 @@
 
 #auth{
   background-color: $auth-bg-color;
+  font-family: $sans-serif;
   margin: 0 auto;
   margin-top: 75px;
+
 
   >h3{
     color: $auth-font-color;

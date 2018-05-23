@@ -2,6 +2,8 @@
   $height: 50px;
 
   background-color: $navigation-bg-color;
+  color: $navigation-font-color;
+  font-family: $sans-serif;
   position: fixed;
   z-index: 1;
   left: 0px;

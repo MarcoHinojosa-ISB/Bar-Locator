@@ -1,4 +1,6 @@
 #home{
+  font-family: $serif;
+
   h2{
     text-align: center;
   }
@@ -29,6 +31,7 @@
       &:hover{
         cursor: pointer;
       }
+      outline: none;
     }
   }
 }

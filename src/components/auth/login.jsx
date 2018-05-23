@@ -7,7 +7,7 @@ import {loggedIn} from "../../store/actions/userActions.jsx";
 class Login extends React.Component{
   constructor(props){
     super(props);
-    this.state = {username: "", password: ""}
+    this.state = {username: "", password: "", errorMessage: ""}
   }
   setUsername(e){
     this.setState({username: e.target.value})
@@ -19,10 +19,12 @@ class Login extends React.Component{
     e.preventDefault();
     Axios.post("/api/users/login", this.state)
     .then( result => {
+      this.setState({errorMessage: ""})
       store.dispatch(loggedIn(this.state.username, this.state.firstName, this.state.lastName));
       this.props.history.push("/");
     })
     .catch( err => {
+      this.setState({errorMessage: "username or passsword is incorrect"});
       console.log(err);
     })
   }
@@ -32,6 +34,7 @@ class Login extends React.Component{
       <form id="login" onSubmit={this.login.bind(this)}>
         <input type="text" onChange={this.setUsername.bind(this)} value={this.state.username} placeholder="username" />
         <input type="password" onChange={this.setPassword.bind(this)} value={this.state.password} placeholder="password" />
+        <div className="error">{this.state.errorMessage}</div>
         <input type="submit" value="submit" />
       </form>
     )

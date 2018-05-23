@@ -38,13 +38,12 @@ class Venues extends React.Component{
   toggleGoing(venue){
     // if person plans to go
     if(venue.people_going.indexOf(store.getState().user.username) === -1){
-      Axios.post("/api/venues/add-to-venue", {
-        venueId: venue.venueId,
+      Axios.post("/api/venues/add-user-to-venue", {
+        id: venue.id,
         people_going: venue.people_going,
         username: store.getState().user.username
       })
       .then( result => {
-        console.log(result);
         this.props.updateVenues();
       })
       .catch( err => {
@@ -53,13 +52,12 @@ class Venues extends React.Component{
     }
     // if person changes mind
     else{
-      Axios.post("/api/venues/remove-from-venue", {
-        venueId: venue.venueId,
+      Axios.post("/api/venues/remove-user-from-venue", {
+        id: venue.id,
         people_going: venue.people_going,
         username: store.getState().user.username
       })
       .then( result => {
-        console.log(result);
         this.props.updateVenues();
       })
       .catch( err => {
@@ -69,6 +67,7 @@ class Venues extends React.Component{
   }
 
   render(){
+    // render loading icon
     if(this.props.loading){
       var results = (
         <div className="loading">
@@ -76,19 +75,21 @@ class Venues extends React.Component{
         </div>
       )
     }
+    // render default message
     else if(!this.props.venues){
       var results = (
         <div className="no-results">
-          <h2><i>Find theme parks in your area above</i></h2>
+          <h2><i>Find bars in your area</i></h2>
         </div>
       )
     }
+    // render venues
     else{
       var list = this.displayVenues();
 
       var results = (
         <div className="some-results">
-          <h3>parks near {this.props.location}</h3>
+          <h3>bars near {this.props.location} ({this.props.venues.length})</h3>
           {list}
         </div>
       )

@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 
 var venueSchema = mongoose.Schema({
-  venueId: {type: String, required: true},
+  id: {type: String, required: true},
   name: {type: String, required: true},
   address: {type: String},
   phone_number: {type: String},

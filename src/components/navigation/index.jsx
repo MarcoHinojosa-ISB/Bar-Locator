@@ -41,7 +41,7 @@ class Navigation extends React.Component{
 
     return(
       <div id="navigation">
-        <h3 className="title" onClick={this.home.bind(this)}>Theme Park Locator</h3>
+        <h3 className="title" onClick={this.home.bind(this)}>Bar Locator</h3>
 
         {btns}
       </div>
