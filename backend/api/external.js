@@ -11,11 +11,9 @@ function init(app){
       }
     })
     .then(result1 => {
-      console.log("dsadasdasdasdsadasdasd", process.env.JWT_SECRET)
       res.send(result1.data.businesses);
     })
     .catch(err => {
-      console.log(err)
       res.send("server error");
     });
   })
