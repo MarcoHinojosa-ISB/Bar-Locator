@@ -10,11 +10,13 @@ function init(app){
         'Authorization': 'Bearer ' + process.env.YELP_FUSION_API_KEY
       }
     })
-    .then((result) => {
-      res.send(result.data.businesses);
+    .then(result1 => {
+      console.log("dsadasdasdasdsadasdasd", process.env.JWT_SECRET)
+      res.send(result1.data.businesses);
     })
-    .catch((err) => {
-      res.send(err);
+    .catch(err => {
+      console.log(err)
+      res.send("server error");
     });
   })
 }

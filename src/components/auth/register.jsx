@@ -3,6 +3,8 @@ import {withRouter} from "react-router";
 import Axios from "axios";
 import store from "../../store/index.jsx";
 import {loggedIn} from '../../store/actions/userActions.jsx';
+import jwt from "jsonwebtoken";
+import jwtsecret from "../../../jwtsecret.js";
 
 class Register extends React.Component{
   constructor(props){
@@ -27,89 +29,51 @@ class Register extends React.Component{
   register(e){
     e.preventDefault();
 
-    if(!this.checkInputErrors()){
-      Axios.post("/api/users/check-duplicate-usernames", this.state)
-      .then(result => {
-        Axios.post("/api/users/register", this.state)
-        .then( result => {
-          store.dispatch(loggedIn(this.state.username, this.state.firstName, this.state.lastName))
-          this.props.history.push("/")
-        })
-        .catch( err => {
-          console.log(err);
-        })
-      })
-      .catch(err => {
-        console.log(err);
-        this.setState({usernameError: "username already exists"});
-      })
-    }
+    this.setState({usernameError: ""});
+    this.setState({passwordError: ""});
+    this.setState({firstNameError: ""});
+    this.setState({lastNameError: ""});
+
+    Axios.post("/api/users/register", {
+      firstname: this.state.firstName,
+      lastname: this.state.lastName,
+      username: this.state.username,
+      password: this.state.password
+    })
+    .then( result => {
+      store.dispatch(loggedIn(result.data));
+      this.props.history.push("/")
+    })
+    .catch( err => {
+      switch(err.response.data.split('"')[1]){
+        case "username":
+          this.setState({usernameError: err.response.data});
+          break;
+        case "password":
+          this.setState({passwordError: err.response.data});
+          break;
+        case "firstname":
+          this.setState({firstNameError: err.response.data});
+          break;
+        case "lastname":
+          this.setState({lastNameError: err.response.data});
+          break;
+      }
+    })
 
     return false;
   }
-  checkInputErrors(){
-    //check for input errors
-    var errorFound = false;
-    var errors = {username: "", password: "", firstName: "", lastName: ""};
-
-    if(this.state.firstName.length === 0){
-      errorFound = true;
-      errors.firstName = "First Name cannot be empty";
+  componentWillMount(){
+    try{
+      var test = jwt.verify(store.getState().user.authToken, jwtsecret.secret);
     }
-    else if(!this.state.firstName.match(/^[A-Za-z]/)){
-      errorFound = true;
-      errors.firstName = "First Name must begin with a letter";
+    catch(err){
+      // no need to handle err for now
     }
-    else if(!this.state.firstName.match(/^\w+$/)){
-      errorFound = true;
-      errors.firstName = "First Name cannot contain special characters";
+    if(test){
+      this.props.history.push("/");
     }
-
-    if(this.state.lastName.length === 0){
-      errorFound = true;
-      errors.lastName = "Last Name cannot be empty";
-    }
-    else if(!this.state.lastName.match(/^[A-Za-z]/)){
-      errorFound = true;
-      errors.lastName = "Last Name must begin with a letter";
-    }
-    else if(!this.state.lastName.match(/^\w+$/)){
-      errorFound = true;
-      errors.lastName = "Last Name cannot contain special characters";
-    }
-
-    if(this.state.username.length < 3){
-      errorFound = true;
-      errors.username = "Username must be at least 3 characters long";
-    }
-    else if(!this.state.username.match(/^[A-Za-z]/)){
-      errorFound = true;
-      errors.username = "Username must begin with a letter";
-    }
-    else if(!this.state.username.match(/^\w+$/)){
-      errorFound = true;
-      errors.username = "Username cannot contain special characters";
-    }
-
-    if(this.state.password.length < 6){
-      errorFound = true;
-      errors.password = "Password must be at least 6 characters long";
-    }
-    else if(!this.state.password.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]/)){
-      errorFound = true;
-      errors.password = "Password must contain 1 letter and 1 number";
-    }
-
-    this.setState({
-      usernameError: errors.username,
-      passwordError: errors.password,
-      firstNameError: errors.firstName,
-      lastNameError: errors.lastName
-    })
-
-    return errorFound;
   }
-
   render(){
     return(
       <form id="register" onSubmit={this.register.bind(this)}>

@@ -3,6 +3,8 @@ import {withRouter} from "react-router";
 import Axios from "axios";
 import store from "../../store/index.jsx";
 import {loggedIn} from "../../store/actions/userActions.jsx";
+import jwt from "jsonwebtoken";
+import jwtsecret from "../../../jwtsecret.js";
 
 class Login extends React.Component{
   constructor(props){
@@ -20,7 +22,7 @@ class Login extends React.Component{
     Axios.post("/api/users/login", this.state)
     .then( result => {
       this.setState({errorMessage: ""})
-      store.dispatch(loggedIn(this.state.username, this.state.firstName, this.state.lastName));
+      store.dispatch(loggedIn(result.data));
       this.props.history.push("/");
     })
     .catch( err => {
@@ -28,7 +30,17 @@ class Login extends React.Component{
       console.log(err);
     })
   }
-
+  componentWillMount(){
+    try{
+      var test = jwt.verify(store.getState().user.authToken, jwtsecret.secret);
+    }
+    catch(err){
+      // no need to handle err
+    }
+    if(test){
+      this.props.history.push("/");
+    }
+  }
   render(){
     return (
       <form id="login" onSubmit={this.login.bind(this)}>

@@ -2,6 +2,8 @@ import React from "react";
 import {withRouter} from "react-router";
 import store from "../../store/index.jsx";
 import {loggedOut} from "../../store/actions/userActions.jsx";
+import jwt from "jsonwebtoken";
+import jwtsecret from "../../../jwtsecret.js";
 
 class Navigation extends React.Component{
   constructor(props){
@@ -22,10 +24,17 @@ class Navigation extends React.Component{
     this.props.history.push("/register");
   }
   render(){
-    if(store.getState().user.username){
+    try{
+      var userdata = jwt.verify(store.getState().user.authToken, jwtsecret.secret);
+    }
+    catch(err){
+      // no need for err handling yet
+    }
+
+    if(userdata){
       var btns = (
         <ul className="nav-btns">
-          <li>{store.getState().user.username}</li>
+          <li>{userdata.username}</li>
           <li className="clickable" onClick={this.logout.bind(this)}>Log out</li>
         </ul>
       )

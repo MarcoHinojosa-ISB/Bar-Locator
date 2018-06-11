@@ -1,12 +1,9 @@
-export function loggedIn(username, firstname, lastname){
+export function loggedIn(authToken){
   return {
     type: "LOGGED_IN",
-    username,
-    firstname,
-    lastname
+    authToken
   };
 };
-
 export function loggedOut(){
   return {
     type: "LOGGED_OUT"

@@ -1,6 +1,8 @@
 import React from "react";
 import Axios from "axios";
 import store from "../../store/index.jsx";
+import jwt from "jsonwebtoken";
+import jwtsecret from "../../../jwtsecret.js";
 
 class Venues extends React.Component{
   constructor(props){
@@ -11,11 +13,18 @@ class Venues extends React.Component{
   displayVenues(){
     return this.props.venues.map((val, i) => {
       var image = val.image_url ? <img src={val.image_url} alt={val.name}></img> : <div className="bad-img-url">No Image available</div>;
-      if(store.getState().user.username){
-        if(val.people_going.indexOf(store.getState().user.username) !== -1)
-          var inviteSelf = <div className="invite-self" onClick={() => this.toggleGoing.call(this, val)}>Unmark</div>
+
+      try{
+        var userdata = jwt.verify(store.getState().user.authToken, jwtsecret.secret);
+      }
+      catch(err){
+        // no need for err handling yet
+      }
+      if(userdata){
+        if(val.people_going.indexOf(userdata.username) !== -1)
+          var inviteSelf = <div className="invite-self" onClick={() => this.toggleGoing.call(this, val, userdata.username)}>Unmark</div>
         else
-          var inviteSelf = <div className="invite-self" onClick={() => this.toggleGoing.call(this, val)}>Mark as going</div>
+          var inviteSelf = <div className="invite-self" onClick={() => this.toggleGoing.call(this, val, userdata.username)}>Mark as going</div>
       }
       else{
         var inviteSelf = <div></div>;
@@ -35,13 +44,13 @@ class Venues extends React.Component{
       );
     })
   }
-  toggleGoing(venue){
+  toggleGoing(venue, username){
     // if person plans to go
-    if(venue.people_going.indexOf(store.getState().user.username) === -1){
+    if(venue.people_going.indexOf(username) === -1){
       Axios.post("/api/venues/add-user-to-venue", {
         id: venue.id,
         people_going: venue.people_going,
-        username: store.getState().user.username
+        username: username
       })
       .then( result => {
         this.props.updateVenues();
@@ -55,7 +64,7 @@ class Venues extends React.Component{
       Axios.post("/api/venues/remove-user-from-venue", {
         id: venue.id,
         people_going: venue.people_going,
-        username: store.getState().user.username
+        username: username
       })
       .then( result => {
         this.props.updateVenues();

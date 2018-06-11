@@ -25,6 +25,9 @@ module.exports = {
     publicPath: "src/build",
     filename: "bundle.js"
   },
+  node: {
+    fs: 'empty'
+  },
   devServer: {
     port: 3000,
     historyApiFallback: true,
