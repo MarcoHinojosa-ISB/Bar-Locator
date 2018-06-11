@@ -1,4 +1,4 @@
-# Bar Locator (repo named Venue-Locator)
+# Bar Locator
 
 ### a small app that allows users to search for any nearby bars in a specific area.
 
