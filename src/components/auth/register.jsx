@@ -10,8 +10,8 @@ class Register extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      username: "", password: "", firstName: "", lastName: "",
-      usernameError: "", passwordError: "", firstNameError: "", lastNameError: ""
+      firstName: "", lastName: "", username: "", password: "",
+      firstNameError: "", lastNameError: "", usernameError: "", passwordError: ""
     }
   }
   setFirst(e){
@@ -35,8 +35,8 @@ class Register extends React.Component{
     this.setState({lastNameError: ""});
 
     Axios.post("/api/users/register", {
-      firstname: this.state.firstName,
-      lastname: this.state.lastName,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
       username: this.state.username,
       password: this.state.password
     })
@@ -46,17 +46,17 @@ class Register extends React.Component{
     })
     .catch( err => {
       switch(err.response.data.split('"')[1]){
+        case "firstName":
+          this.setState({firstNameError: err.response.data});
+          break;
+        case "lastName":
+          this.setState({lastNameError: err.response.data});
+          break;
         case "username":
           this.setState({usernameError: err.response.data});
           break;
         case "password":
           this.setState({passwordError: err.response.data});
-          break;
-        case "firstname":
-          this.setState({firstNameError: err.response.data});
-          break;
-        case "lastname":
-          this.setState({lastNameError: err.response.data});
           break;
       }
     })

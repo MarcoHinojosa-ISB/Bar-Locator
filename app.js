@@ -26,6 +26,7 @@ app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method, authorization");//, multipart/form-data");
   next();
 });
+
 app.use("/node_modules", express.static(__dirname + "/node_modules"));
 app.use("/src", express.static(__dirname + "/src"));
 

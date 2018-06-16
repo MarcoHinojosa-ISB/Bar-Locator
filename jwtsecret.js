@@ -1,7 +1,3 @@
-require("dotenv").config();
-
-var obj = {
-  secret: process.env.JWT_SECRET
+module.exports = {
+  secret: "sip2jrq0w6n183ooy02icv92on9r2tg"
 }
-
-module.exports = obj

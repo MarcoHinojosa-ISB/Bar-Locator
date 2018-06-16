@@ -2,7 +2,7 @@ var jwtsecret = require("../../../jwtsecret.js");
 
 const initialState = {
   authToken: localStorage.getItem("authToken"),
-  secret: jwtsecret
+  secret: jwtsecret.secret
 }
 
 const userReducer = function(state = initialState, action){

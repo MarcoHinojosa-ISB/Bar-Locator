@@ -3,8 +3,8 @@ var bcrypt = require("bcryptjs");
 var joi = require("joi");
 
 var userSchema = joi.object().keys({
-    firstname: joi.string().alphanum().min(3).max(16).required(),
-    lastname: joi.string().alphanum().min(3).max(16).required(),
+    firstName: joi.string().alphanum().min(3).max(16).required(),
+    lastName: joi.string().alphanum().min(3).max(16).required(),
     username: joi.string().alphanum().min(3).max(30).required(),
     password: joi.string().regex(/^[a-zA-Z0-9]{6,20}$/)
 });
@@ -24,17 +24,17 @@ function register(data, callback){
       else{
         bcrypt.hash(data.password, 10, function(err, hash) {
           if(err)
-            callback("server error", null);
+            callback("server error2", null);
           else{
             var newUser = new User({
-              username: data.username,
-              password: hash,
               firstName: data.firstName,
-              lastName: data.lastName
+              lastName: data.lastName,
+              username: data.username,
+              password: hash
             })
 
             newUser.save(function(err){
-              err ? callback("server error", null) : callback(null, data);
+              err ? callback("server error3", null) : callback(null, data);
             });
           }
         });
@@ -46,7 +46,7 @@ function register(data, callback){
 function checkExistingUsernames(data, callback){
   User.find({ username: data.username }).exec(function(err, result){
     if(err)
-      callback("server error");
+      callback("server error1");
     else if(result.length > 0)
       callback('"username" already exists');
     else
