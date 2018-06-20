@@ -1,7 +1,7 @@
 import React from "react";
 import Axios from "axios";
 import store from "../../store/index.jsx";
-import {saveLastSearch} from "../../store/actions/venueActions.jsx";
+import {saveLastSearch, clearSearchData} from "../../store/actions/venueActions.jsx";
 import Venues from "../venues/index.jsx";
 import Auth from "../auth/index.jsx";
 
@@ -54,6 +54,10 @@ class Home extends React.Component{
       console.log(err);
     })
   }
+  clearSearch(){
+    store.dispatch(clearSearchData());
+    this.setState({location: "", venues: null, loadingResults: false})
+  }
   componentDidMount(){
     if(store.getState().venues.venueList)
       this.setState({location: store.getState().venues.location, venues: store.getState().venues.venueList});
@@ -63,10 +67,13 @@ class Home extends React.Component{
       <div id="home">
         <br />
         <h2>Bar locator</h2>
+
         <form className="search" onSubmit={this.search.bind(this)}>
-          <input type="text" placeholder="location" onChange={this.setLocation.bind(this)} />
-          <button type="submit" ><i className="fa fa-search"></i></button>
+          <input type="text" placeholder="location" value={this.state.location} onChange={this.setLocation.bind(this)} />
+          <button type="submit" className="submit"><i className="fa fa-search"></i></button>
+          <button type="button" className="reset" onClick={this.clearSearch.bind(this)}>Reset</button>
         </form>
+
         <Venues updateVenues={this.updateVenues.bind(this)} location={this.state.location} venues={this.state.venues} loading={this.state.loadingResults}/>
       </div>
     )

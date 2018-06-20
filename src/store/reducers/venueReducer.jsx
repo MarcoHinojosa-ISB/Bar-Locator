@@ -9,7 +9,7 @@ const venueReducer = function(state = initialState, action){
       state.location = action.location;
       state.venueList = action.venueList;
       break;
-    case "REMOVE_SEARCH_DATA":
+    case "CLEAR_SEARCH_DATA":
       state.location = null;
       state.venueList = null;
       break;

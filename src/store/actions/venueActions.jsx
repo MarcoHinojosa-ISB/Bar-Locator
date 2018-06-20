@@ -6,8 +6,8 @@ export function saveLastSearch(location, venueList){
   }
 }
 
-export function removeSearchData(){
+export function clearSearchData(){
   return {
-    type: "REMOVE_SEARCH_DATA"
+    type: "CLEAR_SEARCH_DATA"
   }
 }
