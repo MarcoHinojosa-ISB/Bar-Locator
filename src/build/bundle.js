@@ -53826,7 +53826,7 @@ var Register = function (_React$Component) {
             _this2.setState({ usernameError: "Username" + err.response.data.split('"')[2] });
             break;
           case "password":
-            _this2.setState({ passwordError: "Password" + err.response.data.split('"')[2] });
+            _this2.setState({ passwordError: "Password must be alphanumeric and between 6-20 characters" });
             break;
         }
       });

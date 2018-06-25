@@ -56,7 +56,7 @@ class Register extends React.Component{
           this.setState({usernameError: "Username" + err.response.data.split('"')[2]});
           break;
         case "password":
-          this.setState({passwordError: "Password" + err.response.data.split('"')[2]});
+          this.setState({passwordError: "Password must be alphanumeric and between 6-20 characters"});
           break;
       }
     })

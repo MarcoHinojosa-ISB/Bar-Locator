@@ -2,16 +2,16 @@ var User = require("../models/user.js");
 var bcrypt = require("bcryptjs");
 var joi = require("joi");
 
-var userSchema = joi.object().keys({
-    firstName: joi.string().alphanum().min(3).max(16).required(),
-    lastName: joi.string().alphanum().min(3).max(16).required(),
-    username: joi.string().alphanum().min(3).max(30).required(),
-    password: joi.string().regex(/^[a-zA-Z0-9]{6,20}$/)
+var userValidateSchema = joi.object().keys({
+  firstName: joi.string().alphanum().min(3).max(16).required(),
+  lastName: joi.string().alphanum().min(3).max(16).required(),
+  username: joi.string().alphanum().min(3).max(30).required(),
+  password: joi.string().regex(/^[a-zA-Z0-9]{6,20}$/)
 });
 
 function register(data, callback){
   //joi validation
-  var validation = joi.validate(data, userSchema);
+  var validation = joi.validate(data, userValidateSchema);
 
   if(validation.error){
     callback(validation.error.details[0].message, null);
