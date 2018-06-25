@@ -47,16 +47,16 @@ class Register extends React.Component{
     .catch( err => {
       switch(err.response.data.split('"')[1]){
         case "firstName":
-          this.setState({firstNameError: err.response.data});
+          this.setState({firstNameError: "First Name" + err.response.data.split('"')[2]});
           break;
         case "lastName":
-          this.setState({lastNameError: err.response.data});
+          this.setState({lastNameError: "Last Name" + err.response.data.split('"')[2]});
           break;
         case "username":
-          this.setState({usernameError: err.response.data});
+          this.setState({usernameError: "Username" + err.response.data.split('"')[2]});
           break;
         case "password":
-          this.setState({passwordError: err.response.data});
+          this.setState({passwordError: "Password" + err.response.data.split('"')[2]});
           break;
       }
     })
@@ -65,25 +65,25 @@ class Register extends React.Component{
   }
   componentWillMount(){
     try{
-      var test = jwt.verify(store.getState().user.authToken, jwtsecret.secret);
+      var user = jwt.verify(store.getState().user.authToken, jwtsecret.secret);
     }
     catch(err){
       // no need to handle err for now
     }
-    if(test){
+    if(user){
       this.props.history.push("/");
     }
   }
   render(){
     return(
       <form id="register" onSubmit={this.register.bind(this)}>
-        <input type="text" onChange={this.setFirst.bind(this)} placeholder="first name" />
+        <input type="text" onChange={this.setFirst.bind(this)} placeholder="First Name" />
         <div className="error">{this.state.firstNameError}</div>
-        <input type="text" onChange={this.setLast.bind(this)} placeholder="last name" />
+        <input type="text" onChange={this.setLast.bind(this)} placeholder="Last Name" />
         <div className="error">{this.state.lastNameError}</div>
-        <input type="text" onChange={this.setUsername.bind(this)} placeholder="username" />
+        <input type="text" onChange={this.setUsername.bind(this)} placeholder="Username" />
         <div className="error">{this.state.usernameError}</div>
-        <input type="password" onChange={this.setPassword.bind(this)} placeholder="password" />
+        <input type="password" onChange={this.setPassword.bind(this)} placeholder="Password" />
         <div className="error">{this.state.passwordError}</div>
         <input type="submit" value="submit"/>
       </form>

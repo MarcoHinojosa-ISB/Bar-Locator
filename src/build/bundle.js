@@ -53817,16 +53817,16 @@ var Register = function (_React$Component) {
       }).catch(function (err) {
         switch (err.response.data.split('"')[1]) {
           case "firstName":
-            _this2.setState({ firstNameError: err.response.data });
+            _this2.setState({ firstNameError: "First Name" + err.response.data.split('"')[2] });
             break;
           case "lastName":
-            _this2.setState({ lastNameError: err.response.data });
+            _this2.setState({ lastNameError: "Last Name" + err.response.data.split('"')[2] });
             break;
           case "username":
-            _this2.setState({ usernameError: err.response.data });
+            _this2.setState({ usernameError: "Username" + err.response.data.split('"')[2] });
             break;
           case "password":
-            _this2.setState({ passwordError: err.response.data });
+            _this2.setState({ passwordError: "Password" + err.response.data.split('"')[2] });
             break;
         }
       });
@@ -53837,11 +53837,11 @@ var Register = function (_React$Component) {
     key: "componentWillMount",
     value: function componentWillMount() {
       try {
-        var test = _jsonwebtoken2.default.verify(_index2.default.getState().user.authToken, _jwtsecret2.default.secret);
+        var user = _jsonwebtoken2.default.verify(_index2.default.getState().user.authToken, _jwtsecret2.default.secret);
       } catch (err) {
         // no need to handle err for now
       }
-      if (test) {
+      if (user) {
         this.props.history.push("/");
       }
     }
@@ -53851,25 +53851,25 @@ var Register = function (_React$Component) {
       return _react2.default.createElement(
         "form",
         { id: "register", onSubmit: this.register.bind(this) },
-        _react2.default.createElement("input", { type: "text", onChange: this.setFirst.bind(this), placeholder: "first name" }),
+        _react2.default.createElement("input", { type: "text", onChange: this.setFirst.bind(this), placeholder: "First Name" }),
         _react2.default.createElement(
           "div",
           { className: "error" },
           this.state.firstNameError
         ),
-        _react2.default.createElement("input", { type: "text", onChange: this.setLast.bind(this), placeholder: "last name" }),
+        _react2.default.createElement("input", { type: "text", onChange: this.setLast.bind(this), placeholder: "Last Name" }),
         _react2.default.createElement(
           "div",
           { className: "error" },
           this.state.lastNameError
         ),
-        _react2.default.createElement("input", { type: "text", onChange: this.setUsername.bind(this), placeholder: "username" }),
+        _react2.default.createElement("input", { type: "text", onChange: this.setUsername.bind(this), placeholder: "Username" }),
         _react2.default.createElement(
           "div",
           { className: "error" },
           this.state.usernameError
         ),
-        _react2.default.createElement("input", { type: "password", onChange: this.setPassword.bind(this), placeholder: "password" }),
+        _react2.default.createElement("input", { type: "password", onChange: this.setPassword.bind(this), placeholder: "Password" }),
         _react2.default.createElement(
           "div",
           { className: "error" },
